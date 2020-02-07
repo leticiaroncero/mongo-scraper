@@ -1,5 +1,6 @@
 var express = require("express");
 var mongoose = require("mongoose");
+var exphbs = require("express-handlebars");
 
 var PORT = 3000;
 
@@ -14,6 +15,10 @@ var app = express();
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 // Make public a static folder
 app.use(express.static("public"));
 
