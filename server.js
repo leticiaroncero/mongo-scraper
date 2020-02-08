@@ -5,7 +5,7 @@ var exphbs = require("express-handlebars");
 var PORT = 3000;
 
 // Require all models
-// var db = require("./models");
+var db = require("./models");
 
 // Initialize Express
 var app = express();
@@ -26,7 +26,7 @@ var routes = require("./controllers/routes");
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/populate", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/scrapper", { useNewUrlParser: true });
 
 // When the server starts, create and save a new Library document to the db
 // The "unique" rule in the Library model's schema will prevent duplicate libraries from being added to the server
