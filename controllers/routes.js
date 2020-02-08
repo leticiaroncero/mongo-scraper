@@ -2,7 +2,7 @@ var express = require("express");
 var cheerio = require("cheerio");
 var axios = require("axios");
 
-// var db = require("../models");
+var db = require("../models");
 
 var router = express.Router();
 
@@ -18,6 +18,7 @@ router.get("/api/fetch", function (req, res) {
         // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
         var $ = cheerio.load(response.data);
 
+        var articles = [];
         // With cheerio, find each p-tag with the "title" class
         // (i: iterator. element: the current element)
         $("a[data-click-id=body]").each(function (i, element) {
@@ -29,12 +30,22 @@ router.get("/api/fetch", function (req, res) {
             // then save the values for any "href" attributes that the child elements may have
             var link = $(element).attr("href");
 
-            console.log(title + ", " + link);
+            if (title && link) {
+                articles.push({
+                    title: title,
+                    link: link
+                });
+            }
         });
 
-        res.send("done");
+        db.Article.insertMany(articles).then(function (dbArticle) {
+            console.log("articles inserted");
+            res.status(200).end();
+        }).catch(function (err) {
+            console.log("error inserting articles");
+            res.status(400).end()
+        });
     });
-
 })
 
 
