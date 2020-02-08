@@ -7,7 +7,16 @@ var db = require("../models");
 var router = express.Router();
 
 router.get("/", function (req, res) {
-    res.render("index");
+    db.Article.find({})
+        .then(function (dbArticle) {
+            var hbsObj = {
+                articles: dbArticle
+            }
+            res.render("index", hbsObj);
+        })
+        .catch(function (err) {
+            res.render("index");
+        });
 });
 
 router.get("/api/fetch", function (req, res) {
