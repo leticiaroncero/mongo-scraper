@@ -22,6 +22,9 @@ app.set("view engine", "handlebars");
 // Make public a static folder
 app.use(express.static("public"));
 
+var routes = require("./controllers/routes");
+app.use(routes);
+
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/populate", { useNewUrlParser: true });
 
