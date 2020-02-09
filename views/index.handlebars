@@ -28,27 +28,30 @@
     </div>
 </div>
 
-<div>
-    <ul>
-        {{#each articles}}
-        <div class="card">
-            <h5 class="card-header"><a href="https://www.reddit.com/{{link}}">{{title}}</a></h5>
-            <div class="card-body">
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"></li>
-                {{#each notes}}
-                <li class="list-group-item">{{body}} <button class="btn btn-danger delete-note" data-note-id="{{_id}}">X</button></li>
-                {{/each}}
-            </ul>
-            <div class="card-body">
-                <form class="note-form" data-article-id="{{_id}}">
-                    <input type="text" placeholder="Add a note"></input>
-                    <button class="btn btn-primary">Submit</button>
-                </form>
-            </div>
+<div class="container">
+    {{#each articles}}
+    <div class="card">
+        <h5 class="card-header"><a href="https://www.reddit.com/{{link}}">{{title}}</a></h5>
+        {{#if description}}
+        <div class="card-body">
+            <p class="card-text">{{description}}</p>
         </div>
-        {{/each}}
-    </ul>
+        {{/if}}
+        {{#if notes}}
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"></li>
+            {{#each notes}}
+            <li class="list-group-item">{{body}} <button class="btn btn-danger delete-note"
+                    data-note-id="{{_id}}">X</button></li>
+            {{/each}}
+        </ul>
+        {{/if}}
+        <div class="card-body">
+            <form class="note-form" data-article-id="{{_id}}">
+                <input type="text" placeholder="Add a note"></input>
+                <button class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    {{/each}}
 </div>

@@ -24,27 +24,23 @@ router.get("/api/fetch", function (req, res) {
 
     axios.get("https://www.reddit.com/r/photography/").then(function (response) {
 
-        // Load the Response into cheerio and save it to a variable
-        // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
         var $ = cheerio.load(response.data);
 
-        // With cheerio, find each p-tag with the "title" class
-        // (i: iterator. element: the current element)
-        $("a[data-click-id=body]").each(function (i, element) {
+        $("div[data-click-id=background]").each(function (i, element) {
 
-            // Save the text of the element in a "title" variable
-            var title = $(element).text();
+            var titleContainer = $(element).find("a[data-click-id=body]");
+            var title = $(titleContainer).text();
+            var link = $(titleContainer).attr("href");
 
-            // In the currently selected element, look at its child elements (i.e., its a-tags),
-            // then save the values for any "href" attributes that the child elements may have
-            var link = $(element).attr("href");
+            var description = $(element).find("div[data-click-id=text]").text();
 
             if (title && link) {
                 db.Article.findOneAndUpdate({
                     link: link
                 }, {
                     title: title,
-                    link: link
+                    link: link,
+                    description: description
                 }, { upsert: true }).catch(function (err) {
                     console.log("error inserting article");
                 });
