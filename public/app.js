@@ -17,4 +17,15 @@ $(document).ready(function () {
         });
     });
 
+    $(".note-form").on("submit", function(event) {
+        event.preventDefault();
+        var noteBody = $(this).find("input").val().trim();
+        var articleId = $(this).attr("data-article-id");
+
+        $.post("/api/articles/" + articleId, {
+            body: noteBody
+        }).then(function () {
+            location.reload();
+        });
+    });
 });
