@@ -28,4 +28,14 @@ $(document).ready(function () {
             location.reload();
         });
     });
+
+    $(".delete-note").on("click", function() {
+        var noteId = $(this).attr("data-note-id");
+        $.ajax({
+            url: "/api/articles/" + noteId,
+            method: "DELETE"
+        }).then(function () {
+            location.reload();
+        });
+    });
 });

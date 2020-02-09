@@ -78,4 +78,14 @@ router.post("/api/articles/:id", function (req, res) {
         });
 });
 
+router.delete("/api/articles/:id", function(req, res) {
+    db.Note.deleteOne({_id: req.params.id}).then(function () {
+        console.log("note deleted");
+        res.status(200).end();
+    }).catch(function (err) {
+        console.log("error deleting note");
+        res.status(400).end()
+    });
+});
+
 module.exports = router;

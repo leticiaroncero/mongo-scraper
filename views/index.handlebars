@@ -47,7 +47,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"></li>
                 {{#each notes}}
-                <li class="list-group-item">{{body}} <button class="btn btn-danger delete-note">X</button></li>
+                <li class="list-group-item">{{body}} <button class="btn btn-danger delete-note" data-note-id="{{_id}}">X</button></li>
                 {{/each}}
             </ul>
             <div class="card-body">
