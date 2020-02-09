@@ -55,9 +55,16 @@ router.get("/api/fetch", function (req, res) {
             res.status(400).end()
         });
     });
-})
+});
 
-
-
+router.get("/api/clear", function (req, res) {
+    db.Article.deleteMany({}).then(function () {
+        console.log("articles deleted");
+        res.status(200).end();
+    }).catch(function (err) {
+        console.log("error deleting articles");
+        res.status(400).end()
+    });
+});
 
 module.exports = router;
