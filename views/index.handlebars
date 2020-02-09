@@ -31,15 +31,32 @@
     <div class="background-image">
     </div>
     <div class="caption">
-        <h1></h1>
-        <p></p>
+        <h1>Mongo Scraper</h1>
+        <p>Reddit Photography</p>
     </div>
 </div>
 
 <div>
     <ul>
-    {{#each articles}}
-        <li><a href="https://www.reddit.com/{{link}}">{{title}}</a></li>
-    {{/each}}
+        {{#each articles}}
+        <div class="card">
+            <h5 class="card-header"><a href="https://www.reddit.com/{{link}}">{{title}}</a></h5>
+            <div class="card-body">
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"></li>
+                {{#each notes}}
+                <li class="list-group-item">{{body}} <button class="btn btn-danger delete-note">X</button></li>
+                {{/each}}
+            </ul>
+            <div class="card-body">
+                <form>
+                    <input type="text" placeholder="Add a note"></input>
+                    <button class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+        {{/each}}
     </ul>
 </div>

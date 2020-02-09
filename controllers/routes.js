@@ -8,6 +8,7 @@ var router = express.Router();
 
 router.get("/", function (req, res) {
     db.Article.find({})
+    .populate("notes")
         .then(function (dbArticle) {
             var hbsObj = {
                 articles: dbArticle
