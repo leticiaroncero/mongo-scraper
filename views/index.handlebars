@@ -8,10 +8,10 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="btn btn-danger" id="scrape-new">SCRAPE NEW ARTICLES!</a>
+                <button class="btn btn-danger" id="scrape-new">SCRAPE NEW ARTICLES!</button>
             </li>
             <li class="nav-item">
-                <a class="btn btn-danger" id="clear">CLEAR ARTICLES!</a>
+                <button class="btn btn-danger" id="clear">CLEAR ARTICLES!</button>
             </li>
         </ul>
     </div>
@@ -29,6 +29,12 @@
 </div>
 
 <div class="container">
+    {{#unless articles}}
+    <div class="alert alert-warning text-center">
+        <h4>Uh Oh. Looks like we don't have any new articles.</h4>
+        <p>Click <i>Scrape New Articles</i> above to start</p>
+    </div>
+    {{/unless}}
     {{#each articles}}
     <div class="card">
         <h5 class="card-header"><a href="https://www.reddit.com/{{link}}">{{title}}</a></h5>
@@ -41,15 +47,17 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item"></li>
             {{#each notes}}
-            <li class="list-group-item">{{body}} <button class="btn btn-danger delete-note"
+            <li class="list-group-item"><span class="note">{{body}}</span><button class="btn btn-danger delete-note"
                     data-note-id="{{_id}}">X</button></li>
             {{/each}}
         </ul>
         {{/if}}
         <div class="card-body">
-            <form class="note-form" data-article-id="{{_id}}">
-                <input type="text" placeholder="Add a note"></input>
-                <button class="btn btn-primary">Submit</button>
+            <form class="note-form form-inline" data-article-id="{{_id}}">
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" placeholder="Add a note"></input>
+                </div>
+                <button class="btn btn-primary mb-2">Submit</button>
             </form>
         </div>
     </div>
